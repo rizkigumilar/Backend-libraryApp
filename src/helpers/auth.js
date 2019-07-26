@@ -11,7 +11,7 @@ module.exports = {
 
     if (headerAuth !== allowedAccess) {
       return MiscHelper.response(res, null, 401, 'Unauthorized, Need access token!')
-    } else if (typeof headerSecret === 'undefined') { 
+    } else if (typeof headerSecret === 'undefined') {
       next()
     } else {
       const bearerToken = headerSecret.split(' ')

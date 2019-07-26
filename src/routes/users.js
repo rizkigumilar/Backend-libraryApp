@@ -15,14 +15,16 @@ Route
   .patch('/book/:idBook', book.updateBook)
   .delete('/:idBook', book.deleteBook)
 
-  .get('/borrow', borrow.getAll)
+  .get('/borrow',Auth.authInfo, Auth.accesstoken, borrow.getAll)
+  .get('/profile/:idNum', Auth.authInfo, Auth.accesstoken,borrow.userBorrow)
   .post('/borrow',Auth.authInfo, Auth.accesstoken,borrow.post)
   .patch('/borrow/:idBook', Auth.authInfo, Auth.accesstoken,borrow.update)
 
-  .get('/user', Auth.authInfo, Auth.accesstoken, UserController.getUsers)
+  .get('/user', UserController.getUsers)
   .get('/user/:userid', UserController.userDetail)
+  .delete('/user/member/:userid', UserController.deleteMember)
   .post('/user/register', UserController.register)
-  .post('/user/login',  UserController.login)
+  .post('/user/login', Auth.authInfo, UserController.login)
 
 
 module.exports = Route

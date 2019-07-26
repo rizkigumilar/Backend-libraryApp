@@ -18,7 +18,7 @@ book.getBooks = (search, page) => {
           })
       } else if (page) {
 
-          connection.query("SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc LIMIT " + (page * 12 - 12) + ", 12", (err, result) => {
+          connection.query("SELECT books.idBook,books.name,books.writer,catzegory.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc LIMIT " + (page * 12 - 12) + ", 12", (err, result) => {
               if (!err) {
                   resolve(result)
               } else {

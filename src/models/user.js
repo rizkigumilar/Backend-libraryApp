@@ -20,6 +20,17 @@ module.exports = {
       })
     })
   },
+  deleteMember: userid => {
+    return new Promise((resolve, reject) => {
+      connection.query('DELETE FROM users WHERE userid = ?', userid, (err) => {
+        if (!err) {
+          resolve(`User dengan Id : ${userid} berhasil di Hapus`)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    })
+  },
 
   register: (data) => {
     return new Promise((resolve, reject) => {
@@ -35,7 +46,7 @@ module.exports = {
 
   getByEmail: (email,token) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT userid, email, fullname, status, created_at, updated_at, salt, password FROM users WHERE email = ?', email, (err, result) => {
+      connection.query('SELECT userid, email, fullname, idNum, status, created_at, updated_at, salt, password FROM users WHERE email = ?', email, (err, result) => {
         if (!err) {
           resolve(result)
         } else {

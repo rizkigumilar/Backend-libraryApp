@@ -18,6 +18,19 @@ module.exports = {
     })
   },
 
+  deleteMember: (req, res) => {
+    const userid = req.params.userid
+
+    userModels.deleteMember(userid)
+      .then((resultBook) => {
+        const result = resultBook
+        resultRespon.response(res, result, 200)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  },
+
   // Using Promise
   userDetail: (req, res) => {
     const userid = req.params.userid
@@ -42,6 +55,7 @@ module.exports = {
       password: passwordHash.passwordHash,
       salt: passwordHash.salt,
       token: '',
+      idNum: req.body.idNum,
       status: 1,
       created_at: new Date(),
       updated_at: new Date()
@@ -69,7 +83,7 @@ module.exports = {
         if (usePassword === dataUser.password) {
           dataUser.token = jwt.sign({
             userid: dataUser.userid
-          }, process.env.SECRET_KEY, { expiresIn: '1h' })
+          }, process.env.SECRET_KEY, { expiresIn: '12h' })
 
           delete dataUser.salt
           delete dataUser.password

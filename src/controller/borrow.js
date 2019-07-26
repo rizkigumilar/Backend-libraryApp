@@ -10,6 +10,16 @@ exports.getAll = (req, res) => {
 			console.log(err);
 		});
 };
+exports.userBorrow = (req, res) => {
+	let idNum = req.params.idNum
+	borrow.userBorrow(idNum)
+		.then((resultBook) => {
+			respon.response(res, resultBook, 200);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
 
 exports.post = (req,res)=>{
     let date = new Date();
