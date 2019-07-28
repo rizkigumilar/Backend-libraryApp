@@ -67,6 +67,7 @@ module.exports = {
       })
       .catch((error) => {
         console.log(error)
+        return resultRespon.response(res, null, 403, 'Email is already taken !!!')
       })
   },
 

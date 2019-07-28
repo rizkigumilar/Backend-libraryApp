@@ -23,7 +23,7 @@ exports.userBorrow = (req, res) => {
 
 exports.post = (req,res)=>{
     let date = new Date();
-    date.setDate(date.getDate() + 6);
+    date.setDate(date.getDate() + 3);
     const newBorrow = {
         idBook: req.body.idBook,
         idNum: req.body.idNum,
