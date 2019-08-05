@@ -6,31 +6,31 @@ const Cors = require('cors')
 const xssFilter = require('x-xss-protection')
 const logger = require('morgan')
 const app = express()
-const port = process.env.SERVER_PORT || 5000
+const port = process.env.PORT || 5000
 
 const userRoute = require('./src/routes/users')
 const bookRoute = require('./src/routes/books')
 const borrowRoute = require('./src/routes/borrow')
-const whitelist = process.env.WHITELIST
+// const whitelist = process.env.WHITELIST
 
-const corsOptions = (req, callback) => {
-  if (whitelist.split(',').indexOf(req.header('Origin')) !== -1) {
-    console.log('Success')
-    return callback(null, {
-      origin: true
-    })
-  } else {
-    console.log('Failed')
-    return callback(null, {
-      origin: false
-    })
-  }
-}
+// const corsOptions = (req, callback) => {
+//   if (whitelist.split(',').indexOf(req.header('Origin')) !== -1) {
+//     console.log('Success')
+//     return callback(null, {
+//       origin: true
+//     })
+//   } else {
+//     console.log('Failed')
+//     return callback(null, {
+//       origin: false
+//     })
+//   }
+// }
 
 app.use(express.static(__dirname + '/src/uploads/images'))
 
 app.use(Cors())
-app.options('*', Cors(corsOptions))
+// app.options('*', Cors(corsOptions))
 app.use(xssFilter())
 app.use(logger('dev'))
 
