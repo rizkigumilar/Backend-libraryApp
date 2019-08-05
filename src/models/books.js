@@ -8,8 +8,9 @@ var book = function book(data) {
 
 book.getBooks = (search, page) => {
   return new Promise((resolve, reject) => {
+    const cari = `%${search}%`
     if (search) {
-      connection.query("SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.description, books.StatusBorrow FROM books INNER JOIN category ON  books.idCat = category.idCat WHERE books.location LIKE ? OR category.category LIKE ? OR books.name LIKE ? ORDER BY idBook desc", [`%${search}%`, `%${search}%`, `%${search}%`], (err, result) => {
+      connection.query("SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.description, books.StatusBorrow FROM books INNER JOIN category ON  books.idCat = category.idCat WHERE books.location LIKE ? OR category.category LIKE ? OR books.name LIKE ? ORDER BY idBook desc", [cari, cari, cari], (err, result) => {
         if (!err) {
           resolve(result)
         } else {

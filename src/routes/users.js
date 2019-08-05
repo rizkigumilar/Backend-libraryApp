@@ -8,7 +8,7 @@ Route
   .get('/user', Auth.authInfo, Auth.accesstoken, User.getUsers)
   .get('/user/:userid', Auth.authInfo, User.userDetail)
   .delete('/user/member/:userid', Auth.authInfo, User.deleteMember)
-  .post('/user/register', User.register)
+  .post('/user/register', Auth.authInfo, User.register)
   .post('/user/login', Auth.authInfo, User.login)
 
 

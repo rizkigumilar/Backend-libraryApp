@@ -27,6 +27,8 @@ const corsOptions = (req, callback) => {
   }
 }
 
+app.use(express.static(__dirname + '/src/uploads/images'))
+
 app.use(Cors())
 app.options('*', Cors(corsOptions))
 app.use(xssFilter())

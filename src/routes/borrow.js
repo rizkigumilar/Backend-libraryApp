@@ -5,10 +5,10 @@ const borrow = require('../controller/borrow');
 const Auth = require('../helpers/auth')
 
 Route
-    .get('/borrow', borrow.getAll)
-    .get('/profile/:idNum', borrow.userBorrow)
-    .post('/borrow', borrow.post)
-    .patch('/borrow/:idBook', borrow.update)
+    .get('/borrow', Auth.authInfo, borrow.getAll)
+    .get('/profile/:idNum', Auth.authInfo, borrow.userBorrow)
+    .post('/borrow', Auth.authInfo, borrow.post)
+    .patch('/borrow/:idBook', Auth.authInfo, borrow.update)
 
 
 module.exports = Route
