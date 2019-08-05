@@ -9,6 +9,8 @@ const app = express()
 const port = process.env.SERVER_PORT || 5000
 
 const userRoute = require('./src/routes/users')
+const bookRoute = require('./src/routes/books')
+const borrowRoute = require('./src/routes/borrow')
 const whitelist = process.env.WHITELIST
 
 const corsOptions = (req, callback) => {
@@ -32,12 +34,12 @@ app.use(logger('dev'))
 
 
 app.listen(port, () => {
-    console.log(`App listening to Port ${port}...`)
+  console.log(`App listening to Port ${port}...`)
 })
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
-    extended: false
+  extended: false
 }))
 
 // app.use(function (req, res, next) {
@@ -47,4 +49,4 @@ app.use(bodyParser.urlencoded({
 //     next();
 // })
 
-app.use('/', userRoute)
+app.use('/', userRoute, bookRoute, borrowRoute)

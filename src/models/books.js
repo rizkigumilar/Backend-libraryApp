@@ -3,38 +3,38 @@ const connection = require('../config/connect')
 //object constructor
 var book = function book(data) {
   (this.name = data.name), (this.writer = data.writer),
-    (this.idCat = data.idCat), (this.description = data.description),(this.location = data.location), (this.Image = data.image),(this.StatusBorrow=0 )
+    (this.idCat = data.idCat), (this.description = data.description), (this.location = data.location), (this.Image = data.image), (this.StatusBorrow = 0)
 };
 
 book.getBooks = (search, page) => {
   return new Promise((resolve, reject) => {
-      if (search) {
-          connection.query("SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON  books.idCat = category.idCat WHERE books.location LIKE ? OR category.category LIKE ? OR books.name LIKE ? ORDER BY idBook desc", [`%${search}%`, `%${search}%`, `%${search}%`], (err, result) => {
-              if (!err) {
-                  resolve(result)
-              } else {
-                  reject(new Error(err))
-              }
-          })
-      } else if (page) {
+    if (search) {
+      connection.query("SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.description, books.StatusBorrow FROM books INNER JOIN category ON  books.idCat = category.idCat WHERE books.location LIKE ? OR category.category LIKE ? OR books.name LIKE ? ORDER BY idBook desc", [`%${search}%`, `%${search}%`, `%${search}%`], (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    } else if (page) {
 
-          connection.query("SELECT books.idBook,books.name,books.writer,catzegory.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc LIMIT " + (page * 12 - 12) + ", 12", (err, result) => {
-              if (!err) {
-                  resolve(result)
-              } else {
-                  reject(new Error(err))
-              }
-          })
+      connection.query("SELECT books.idBook,books.name,books.writer,catzegory.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc LIMIT " + (page * 12 - 12) + ", 12", (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
 
-      } else {
-          connection.query('SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc', (err, result) => {
-              if (!err) {
-                  resolve(result)
-              } else {
-                  reject(new Error(err))
-              }
-          })
-      }
+    } else {
+      connection.query('SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.description,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc', (err, result) => {
+        if (!err) {
+          resolve(result)
+        } else {
+          reject(new Error(err))
+        }
+      })
+    }
 
   })
 },
@@ -112,7 +112,7 @@ book.getBooks = (search, page) => {
         })
     })
   },
-  
+
 
 
 

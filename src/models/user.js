@@ -2,7 +2,7 @@ const connection = require('../config/connect')
 
 module.exports = {
   getUsers: (callback) => {
-    connection.query(`SELECT * FROM users`, (err, result) => {
+    connection.query(`SELECT * FROM users `, (err, result) => {
       if (err) console.log(err)
 
       callback(err, result)
@@ -11,7 +11,7 @@ module.exports = {
 
   userDetail: (userid) => {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM users WHERE id = ?', userid, (err, result) => {
+      connection.query('SELECT * FROM users WHERE userid = ?', userid, (err, result) => {
         if (!err) {
           resolve(result)
         } else {
@@ -44,7 +44,7 @@ module.exports = {
     })
   },
 
-  getByEmail: (email,token) => {
+  getByEmail: (email, token) => {
     return new Promise((resolve, reject) => {
       connection.query('SELECT userid, email, fullname, idNum, status, created_at, updated_at, salt, password FROM users WHERE email = ?', email, (err, result) => {
         if (!err) {

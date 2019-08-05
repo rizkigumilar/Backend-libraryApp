@@ -60,6 +60,7 @@ module.exports = {
       created_at: new Date(),
       updated_at: new Date()
     }
+    console.log(data)
 
     userModels.register(data)
       .then((resultRegister) => {

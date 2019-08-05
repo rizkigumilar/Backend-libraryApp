@@ -10,12 +10,12 @@ borrow.getList = () => {
 	return new Promise((resolve, reject) => {
 		connection.query(
 			`SELECT books.idBook,books.name, Borrow.idNum, Borrow.BorrowDate as TanggalPinjam, 
-                    Borrow.returnDate as TanggalBalik, Borrow.expireDate as MaksPinjam,Borrow.Penalty, users.userid, users.fullname
+                    Borrow.returnDate as TanggalBalik, Borrow.expireDate as MaksPinjam,Borrow.Penalty, users.userid, users.fullname, books.image, books.writer
 				FROM Borrow 
 				INNER JOIN users
 				ON users.idNum = Borrow.idNum
 				INNER JOIN books
-				ON books.idBook = Borrow.idBook`,
+				ON books.idBook = Borrow.idBook  ORDER BY idBorrow desc`,
 			(err, res) => {
 				if (!err) {
 					resolve(res);
@@ -30,12 +30,12 @@ borrow.getList = () => {
 borrow.userBorrow = (idNum) => {
 	return new Promise((resolve, reject) => {
 		connection.query(`SELECT books.idBook,books.name, Borrow.idNum, Borrow.BorrowDate as TanggalPinjam, 
-                    Borrow.returnDate as TanggalBalik, Borrow.expireDate as MaksPinjam,Borrow.Penalty, users.userid, users.fullname
+                    Borrow.returnDate as TanggalBalik, Borrow.expireDate as MaksPinjam,Borrow.Penalty, users.userid, users.fullname, books.image, books.writer, Borrow.Penalty
 				FROM Borrow 
 				INNER JOIN users
 				ON users.idNum = Borrow.idNum
 				INNER JOIN books
-				ON books.idBook = Borrow.idBook WHERE users.idNum = ?`,[idNum],(err, res) => {
+				ON books.idBook = Borrow.idBook WHERE users.idNum = ?`, [idNum], (err, res) => {
 				if (!err) {
 					resolve(res);
 				} else {
