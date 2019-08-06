@@ -1,5 +1,6 @@
 const book = require('../models/books')
 const resultRespon = require('../helpers/helper')
+const cloudinary = require('cloudinary')
 
 
 exports.listById = (req, res) => {
@@ -12,13 +13,31 @@ exports.listById = (req, res) => {
       console.log(err);
     });
 },
-  exports.addBook = (req, res) => {
+  exports.addBook = async (req, res) => {
+    let path = req.file.path
+    let geturl = async (req) => {
+      cloudinary.config({
+        cloud_name: 'rizkigumilar',
+        api_key: '676637538629816',
+        api_secret: '207vgph1yEpDtt_G0XcHikhQOY4'
+      })
+
+      let data
+      await cloudinary.uploader.upload(path, (result) => {
+        const fs = require('fs')
+        fs.unlinkSync(path)
+        data = result.url
+      })
+
+      return data
+    }
+
     let newBook = {
       name: req.body.name,
       writer: req.body.writer,
       description: req.body.description,
       location: req.body.location,
-      image: "http://localhost:3001/" + req.file.filename,
+      image: await geturl(),
       idCat: req.body.idCat,
       StatusBorrow: 0
     }
