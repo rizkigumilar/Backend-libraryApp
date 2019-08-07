@@ -20,7 +20,7 @@ Route
     .get('/book', book.getBooks)
     .get('/book/:idBook', Auth.authInfo, book.listById)
     .get('/book/cek/lah', book.getPagination)
-    .get('/book/search', Auth.authInfo, book.searchBooks)
+
     .post('/book', upload.single('image'), Auth.authInfo, book.addBook)
     .patch('/book/:idBook', Auth.authInfo, book.updateBook)
     .delete('/:idBook', Auth.authInfo, book.deleteBook)
