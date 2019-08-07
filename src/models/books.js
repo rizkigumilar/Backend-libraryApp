@@ -117,7 +117,7 @@ book.getBooks = (search, page) => {
   book.getPagination = (limit, page) => {
     let offset = (limit * page) - limit
     return new Promise((resolve, reject) => {
-      connection.query('SELECT books.idBook,books.name,books.writer,catzegory.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc LIMIT ? OFFSET ? ', [limit, offset], (err, result) => {
+      connection.query('SELECT books.idBook,books.name,books.writer,category.category,books.location,books.image,books.StatusBorrow FROM books INNER JOIN category ON books.idCat = category.idCat ORDER BY idBook desc LIMIT ? OFFSET ? ', [limit, offset], (err, result) => {
         if (!err) {
           resolve(result)
         } else {
