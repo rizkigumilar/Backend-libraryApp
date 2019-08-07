@@ -17,9 +17,9 @@ exports.listById = (req, res) => {
     let path = req.file.path
     let geturl = async (req) => {
       cloudinary.config({
-        cloud_name: 'rizkigumilar',
-        api_key: '676637538629816',
-        api_secret: '207vgph1yEpDtt_G0XcHikhQOY4'
+        cloud_name: process.env.CLOUDNAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET
       })
 
       let data
@@ -78,10 +78,23 @@ exports.listById = (req, res) => {
       })
   },
 
-  exports.searchBooks = (req, res) => {
-    const search = req.query.search || ''
+  // exports.searchBooks = (req, res) => {
+  //   const search = req.query.search || ''
 
-    book.searchBooks(search)
+  //   book.searchBooks(search)
+  //     .then((resultBook) => {
+  //       const result = resultBook
+  //       resultRespon.response(res, result, 200)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // },
+
+  exports.getPagination = (req, res) => {
+    let limit = parseInt(req.query.limit) || 4
+    let page = parseInt(req.query.page) || 1
+    book.getPagination(limit, page)
       .then((resultBook) => {
         const result = resultBook
         resultRespon.response(res, result, 200)
@@ -98,7 +111,7 @@ exports.listById = (req, res) => {
         jumlah = resultBook.length
       })
     const search = req.query.search || ''
-    const page = req.query.page
+    const page = req.query.page || ''
     book.getBooks(search, page)
       .then((resultBook) => {
         const result = resultBook
