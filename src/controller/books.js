@@ -92,7 +92,7 @@ exports.listById = (req, res) => {
   // },
 
   exports.getPagination = (req, res) => {
-    let limit = parseInt(req.query.limit) || 4
+    let limit = parseInt(req.query.limit) || 8
     let page = parseInt(req.query.page) || 1
     book.getPagination(limit, page)
       .then((resultBook) => {
